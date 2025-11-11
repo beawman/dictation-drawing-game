@@ -170,7 +170,10 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
 
 5. **Set up the database schema**
    ```bash
+   # Generate migrations (optional, for production deployments)
    npm run db:generate
+   
+   # Push schema directly to database (development)
    npm run db:push
    ```
 
@@ -207,8 +210,9 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
 
 **❌ "Database connection error"**
 - Verify your `POSTGRES_URL` in `.env.local`
+- Start the database: `npm run db:start` (for local Docker setup)
 - Run `npm run db:push` to sync the database schema
-- Check if your database service is running
+- Check if your database service is running: `npm run db:status`
 
 **❌ "Blob storage upload fails"**
 - Verify `BLOB_READ_WRITE_TOKEN` in `.env.local`
@@ -246,10 +250,17 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
 
 # Database management
 npm run db:start                # Start local PostgreSQL (Docker)
-npm run db:generate             # Generate database migrations
-npm run db:push                 # Push schema to database
+npm run db:generate             # Generate SQL migration files
+npm run db:push                 # Push schema directly (development)
+npm run db:migrate              # Run SQL migration files (production)
 npm run db:studio              # Open Drizzle Studio (database GUI)
 npm run db:stop                 # Stop local PostgreSQL (Docker)
+
+# Database Command Guide:
+# - Use db:push for development (faster, direct schema sync)
+# - Use db:generate + db:migrate for production (versioned migrations)
+# - Use db:studio to browse/edit data with GUI
+```
 
 # Development
 npm run dev                    # Start development server

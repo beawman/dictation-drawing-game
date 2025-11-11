@@ -256,7 +256,9 @@ POSTGRES_URL=your_database_url
 ### Database Commands
 ```bash
 npm run db:start      # Start local database
-npm run db:push       # Setup/update schema
+npm run db:generate   # Generate migrations (if schema changed)
+npm run db:push       # Push schema directly (for development)
+npm run db:migrate    # Run pending migrations (for production)
 npm run db:studio     # Open database GUI
 npm run db:connect    # Direct database access
 ```
