@@ -257,6 +257,12 @@ npm run type-check            # Run TypeScript checks
 ./scripts/docker-db.sh status   # Check database status
 ./scripts/docker-db.sh connect  # Connect with psql
 ./scripts/docker-db.sh clean    # Remove database and data (destructive!)
+
+# Word list management  
+npm run wordlist:generate theme     # Generate themed word lists
+npm run wordlist:validate file.txt  # Validate word list format
+./scripts/generate-wordlist.sh      # Direct generator usage
+./scripts/validate-wordlist.sh      # Direct validator usage
 ```
 
 ### Production Deployment
@@ -275,5 +281,44 @@ npm run type-check            # Run TypeScript checks
 3. **Enable Vercel Storage:**
    - Postgres: Project → Storage → Create Database → Postgres
    - Blob: Project → Storage → Create Database → Blob
+
+## 📚 Word Lists
+
+For detailed instructions on creating and uploading word lists, see **[WORDLISTS.md](WORDLISTS.md)**
+
+### Quick Start - Word Lists
+1. Create a text file with one word per line:
+   ```
+   cat
+   dog
+   bird
+   fish
+   ```
+2. Sign in as a teacher at `/teacher`
+3. Go to "Word Sets" → "Upload New Word Set"
+4. Upload your file and activate it
+
+### Example Files
+Check the `/examples/` folder for sample word lists:
+- `animals.txt` - Basic animal names
+- `colors.txt` - Color names  
+- `fruits.txt` - Fruit names
+- `transportation.txt` - Vehicles and transport
+- `days-of-week.txt` - Days of the week
+- `months.txt` - Months of the year
+- `animals-with-images.csv` - Animals with hint images
+
+### Word List Tools
+Generate and validate word lists:
+```bash
+# Generate themed word lists
+npm run wordlist:generate animals my-animals.txt
+npm run wordlist:generate days
+npm run wordlist:generate colors
+
+# Validate word lists before uploading
+npm run wordlist:validate my-animals.txt
+npm run wordlist:validate examples/animals.txt
+```
 
 Built with ❤️ for children's education

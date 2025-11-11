@@ -22,7 +22,9 @@
     "db:restart": "./scripts/docker-db.sh restart",
     "db:logs": "./scripts/docker-db.sh logs",
     "db:status": "./scripts/docker-db.sh status",
-    "db:connect": "./scripts/docker-db.sh connect"
+    "db:connect": "./scripts/docker-db.sh connect",
+    "wordlist:validate": "./scripts/validate-wordlist.sh",
+    "wordlist:generate": "./scripts/generate-wordlist.sh"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.2",
