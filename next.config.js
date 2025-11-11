@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['canvas']
-  },
+  serverExternalPackages: ['canvas'],
   images: {
     domains: ['vercel.blob.store'],
   },
