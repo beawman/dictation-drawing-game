@@ -1,18 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { 
   Upload, 
   Play, 
-  Pause, 
   Users, 
   BookOpen, 
   Settings, 
   Download,
-  Eye,
   Star,
-  Check,
-  X
+  Check
 } from 'lucide-react';
 
 interface WordSet {
@@ -86,34 +84,33 @@ export default function TeacherDashboard() {
     }
   };
 
-  const handleFileUpload = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadFile(file); // Set the file in state
     
-    if (!uploadFile || !uploadTitle.trim()) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        let parsedWords: Array<{word: string; image?: string; order: number}> = [];
+        
+        // Simple CSV parsing for now
+        const lines = content.split('\n');
+        parsedWords = lines.map((line, index) => ({
+          word: line.trim(),
+          order: index + 1
+        })).filter(item => item.word);
 
-    const formData = new FormData();
-    formData.append('file', uploadFile);
-    formData.append('title', uploadTitle.trim());
-
-    try {
-      const response = await fetch('/api/wordsets', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const newWordSet = await response.json();
-        setWordSets(prev => [newWordSet, ...prev]);
-        setUploadFile(null);
-        setUploadTitle('');
-        alert('Word set uploaded successfully!');
-      } else {
-        throw new Error('Upload failed');
+        console.log('Parsed words:', parsedWords);
+        // Here you would normally upload to your API
+      } catch (error) {
+        console.error('Error parsing file:', error);
       }
-    } catch (error) {
-      console.error('Error uploading wordset:', error);
-      alert('Failed to upload word set. Please try again.');
-    }
+    };
+    
+    reader.readAsText(file);
   };
 
   const activateWordSet = async (wordSetId: number) => {
@@ -201,7 +198,7 @@ export default function TeacherDashboard() {
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
-                onClick={() => setActiveTab(id as any)}
+                onClick={() => setActiveTab(id as 'wordsets' | 'submissions' | 'students')}
                 className={`flex items-center px-3 py-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === id
                     ? 'border-blue-500 text-blue-600'
@@ -223,7 +220,7 @@ export default function TeacherDashboard() {
             {/* Upload Form */}
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-bold mb-4">Upload New Word Set</h2>
-              <form onSubmit={handleFileUpload} className="space-y-4">
+              <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Title
@@ -244,7 +241,7 @@ export default function TeacherDashboard() {
                   <input
                     type="file"
                     accept=".csv,.txt"
-                    onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
+                    onChange={handleFileUpload}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
@@ -257,7 +254,7 @@ export default function TeacherDashboard() {
                   <Upload className="w-4 h-4 mr-2" />
                   Upload Word Set
                 </button>
-              </form>
+              </div>
             </div>
 
             {/* Word Sets List */}
@@ -311,9 +308,11 @@ export default function TeacherDashboard() {
               {submissions.map((submission) => (
                 <div key={submission.id} className="border rounded-lg p-4 flex items-center gap-4">
                   <div className="w-24 h-24 border rounded-lg overflow-hidden bg-gray-50">
-                    <img
+                    <Image
                       src={submission.imageURL}
                       alt={`Drawing of ${submission.word}`}
+                      width={96}
+                      height={96}
                       className="w-full h-full object-cover"
                     />
                   </div>

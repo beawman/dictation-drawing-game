@@ -27,7 +27,7 @@ export interface PendingSubmission {
   studentId: string;
   wordId: number;
   word: string;
-  strokeData: any[];
+  strokeData: unknown[];
   imageBlob: Blob;
   createdAt: number;
 }
@@ -153,7 +153,7 @@ class OfflineStorage {
   }
 
   // Save drawing progress (auto-save)
-  async saveDrawingProgress(wordId: number, strokes: any[]): Promise<void> {
+  async saveDrawingProgress(wordId: number, strokes: unknown[]): Promise<void> {
     try {
       const key = `drawing_progress_${wordId}`;
       await localforage.setItem(key, {
@@ -166,11 +166,11 @@ class OfflineStorage {
   }
 
   // Load drawing progress
-  async loadDrawingProgress(wordId: number): Promise<any[] | null> {
+  async loadDrawingProgress(wordId: number): Promise<unknown[] | null> {
     try {
       const key = `drawing_progress_${wordId}`;
       const saved = await localforage.getItem<{
-        strokes: any[];
+        strokes: unknown[];
         savedAt: number;
       }>(key);
 

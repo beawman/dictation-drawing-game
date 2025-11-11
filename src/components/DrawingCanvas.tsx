@@ -177,15 +177,15 @@ export default function DrawingCanvas({
     onStrokeUpdate?.([]);
   }, [onStrokeUpdate]);
 
-  // Export canvas to PNG
-  const exportToPNG = useCallback((): Blob | null => {
-    const canvas = canvasRef.current;
-    if (!canvas) return null;
-
-    return new Promise<Blob | null>((resolve) => {
-      canvas.toBlob(resolve, 'image/png');
-    }) as any;
-  }, []);
+  // Export canvas to PNG (exposed for external use)
+  // const exportToPNG = useCallback((): Promise<Blob | null> => {
+  //   const canvas = canvasRef.current;
+  //   if (!canvas) return Promise.resolve(null);
+  //
+  //   return new Promise<Blob | null>((resolve) => {
+  //     canvas.toBlob(resolve, 'image/png');
+  //   });
+  // }, []);
 
   // Setup event listeners
   useEffect(() => {

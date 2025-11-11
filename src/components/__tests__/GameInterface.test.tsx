@@ -5,7 +5,7 @@ import GameInterface from '@/components/GameInterface';
 
 // Mock the DrawingCanvas component
 jest.mock('@/components/DrawingCanvas', () => {
-  return function MockDrawingCanvas({ onStrokeUpdate }: { onStrokeUpdate: (strokes: any[]) => void }) {
+  return function MockDrawingCanvas({ onStrokeUpdate }: { onStrokeUpdate: (strokes: unknown[]) => void }) {
     return (
       <div data-testid="drawing-canvas">
         <button 
@@ -211,11 +211,11 @@ describe('GameInterface', () => {
     );
 
     // Should show 5 empty stars initially
-    const stars = screen.getAllByRole('img', { hidden: true }).filter(
-      el => el.getAttribute('data-testid') === 'star' || 
-           el.classList.contains('lucide-star') ||
-           el.tagName.toLowerCase() === 'svg'
-    );
+    // const stars = screen.getAllByRole('img', { hidden: true }).filter(
+    //   el => el.getAttribute('data-testid') === 'star' || 
+    //        el.classList.contains('lucide-star') ||
+    //        el.tagName.toLowerCase() === 'svg'
+    // );
     
     // At least some star elements should be present in the header
     expect(document.querySelectorAll('[class*="star"]').length).toBeGreaterThan(0);

@@ -11,11 +11,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { searchParams } = new URL(request.url);
-    const studentId = searchParams.get('studentId');
-    const weekId = searchParams.get('weekId');
-
-    let query = db.query.submissions.findMany();
+    const url = new URL(request.url);
+    const studentId = url.searchParams.get('studentId');    let query = db.query.submissions.findMany();
     
     if (session.user.role === 'student') {
       // Students can only see their own submissions

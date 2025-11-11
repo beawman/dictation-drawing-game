@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { Play, Volume2, Eye, ArrowRight, Star, RotateCcw } from 'lucide-react';
 import DrawingCanvas, { Stroke, canvasUtils } from '@/components/DrawingCanvas';
 
@@ -107,27 +108,23 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
 
       // Auto advance after a delay
       setTimeout(() => {
-        nextWord();
+        // Go to next word
+        if (currentWordIndex < wordSet.items.length - 1) {
+          setCurrentWordIndex(prev => prev + 1);
+          setStrokes([]);
+          setShowHint(false);
+        } else {
+          // Game completed
+          alert(`Great job! You completed all ${wordSet.items.length} words!`);
+        }
       }, 2500);
       
     } catch (error) {
       console.error('Submission error:', error);
     }
-  }, [currentWord, strokes, onSubmission, currentWordIndex]);
+  }, [currentWord, strokes, onSubmission, currentWordIndex, wordSet]);
 
-  // Go to next word
-  const nextWord = useCallback(() => {
-    if (!wordSet) return;
-    
-    if (currentWordIndex < wordSet.items.length - 1) {
-      setCurrentWordIndex(prev => prev + 1);
-      setStrokes([]);
-      setShowHint(false);
-    } else {
-      // Game completed
-      alert(`Great job! You completed all ${wordSet.items.length} words!`);
-    }
-  }, [wordSet, currentWordIndex]);
+  // This function was moved inline to the submission handler to avoid circular dependency
 
   // Restart current word
   const restartWord = useCallback(() => {
@@ -266,9 +263,11 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
                 <h3 className="text-2xl font-bold child-friendly text-gray-800 mb-4">
                   Hint!
                 </h3>
-                <img
+                <Image
                   src={currentWord.image}
                   alt={`Hint for ${currentWord.word}`}
+                  width={300}
+                  height={192}
                   className="max-w-full h-48 object-contain mx-auto rounded-lg"
                 />
               </div>
@@ -300,7 +299,7 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
                 }`}
               >
                 <ArrowRight className="w-8 h-8 inline mr-2" />
-                I'm Done!
+                I&apos;m Done!
               </button>
             </div>
           </div>

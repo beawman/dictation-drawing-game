@@ -44,11 +44,12 @@ export async function POST(request: NextRequest) {
     // Parse CSV or text file
     if (file.name.endsWith('.csv')) {
       const parsed = Papa.parse(fileContent, { header: true });
-      parsedItems = parsed.data.map((row: any, index) => ({
-        word: row.word || row.Word,
-        image: row.image || row.Image,
-        order: index + 1
-      })).filter(item => item.word);
+      parsedItems = (parsed.data as { word?: string; Word?: string; image?: string; Image?: string }[])
+        .map((row, index) => ({
+          word: row.word || row.Word || '',
+          image: row.image || row.Image,
+          order: index + 1
+        })).filter(item => item.word.trim());
     } else {
       // Plain text format
       const lines = fileContent.split('\n').filter(line => line.trim());

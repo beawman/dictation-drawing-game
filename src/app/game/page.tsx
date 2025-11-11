@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import GameInterface from '@/components/GameInterface';
 
 interface WordSet {
@@ -41,13 +42,6 @@ export default async function GamePage() {
 
   const wordSet = await getActiveWordSet();
 
-  const handleSubmission = async (word: string, strokeData: any[], imageBlob: Blob) => {
-    'use server';
-    
-    // This would be handled client-side in the actual implementation
-    console.log('Submission received:', { word, strokeData, imageBlob });
-  };
-
   if (!wordSet) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
@@ -55,19 +49,19 @@ export default async function GamePage() {
           <h2 className="text-3xl font-bold child-friendly text-gray-800 mb-4">
             No Words Available
           </h2>
-          <p className="text-lg text-gray-600 child-friendly mb-6">
-            Your teacher hasn't set up any words yet. Please check back later!
-          </p>
-          <a
-            href="/"
-            className="game-button inline-flex items-center"
-          >
-            Go Home
-          </a>
+                  <p className="text-lg text-gray-600 mb-8">
+          Let&apos;s draw some words! Listen carefully and draw what you hear.
+        </p>
+        <Link
+          href="/"
+          className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+        >
+          Go Back
+        </Link>
         </div>
       </div>
     );
   }
 
-  return <GameInterface wordSet={wordSet} onSubmission={handleSubmission} />;
+  return <GameInterface wordSet={wordSet} />;
 }

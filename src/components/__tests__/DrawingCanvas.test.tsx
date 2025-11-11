@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DrawingCanvas, { Stroke } from '@/components/DrawingCanvas';
+import DrawingCanvas from '@/components/DrawingCanvas';
 
 // Mock getBoundingClientRect
 HTMLElement.prototype.getBoundingClientRect = jest.fn(() => ({
