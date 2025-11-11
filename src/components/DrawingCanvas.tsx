@@ -229,6 +229,7 @@ export default function DrawingCanvas({
         width={width}
         height={height}
         className="border-4 border-gray-300 rounded-lg bg-white shadow-lg cursor-crosshair touch-none"
+        data-testid="drawing-canvas"
         style={{ 
           width: `${width}px`, 
           height: `${height}px`,

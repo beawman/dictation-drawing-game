@@ -13,20 +13,23 @@ jest.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
-// Mock window.speechSynthesis for TTS tests
-Object.defineProperty(window, 'speechSynthesis', {
-  value: {
-    speak: jest.fn(),
-    cancel: jest.fn(),
-    pause: jest.fn(),
-    resume: jest.fn(),
-    getVoices: () => [],
-  },
-  writable: true,
-});
+// Mock window.speechSynthesis for TTS tests (only in JSDOM environment)
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'speechSynthesis', {
+    value: {
+      speak: jest.fn(),
+      cancel: jest.fn(),
+      pause: jest.fn(),
+      resume: jest.fn(),
+      getVoices: () => [],
+    },
+    writable: true,
+  });
+}
 
-// Mock for HTMLCanvasElement for jest-dom
-global.HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
+// Mock for HTMLCanvasElement for jest-dom (only in JSDOM environment)
+if (typeof global.HTMLCanvasElement !== 'undefined') {
+  global.HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
   fillRect: jest.fn(),
   clearRect: jest.fn(),
   getImageData: jest.fn(() => ({ data: new Array(4) })),
@@ -46,11 +49,12 @@ global.HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
   scale: jest.fn(),
   rotate: jest.fn(),
   arc: jest.fn(),
-  fill: jest.fn(),
-  measureText: jest.fn(() => ({ width: 0 })),
-}));
+    fill: jest.fn(),
+    measureText: jest.fn(() => ({ width: 0 })),
+  }));
 
-global.HTMLCanvasElement.prototype.toDataURL = jest.fn(() => 'data:image/png;base64,test');
+  global.HTMLCanvasElement.prototype.toDataURL = jest.fn(() => 'data:image/png;base64,test');
+}
 
 require('@testing-library/jest-dom');
 

@@ -158,7 +158,7 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4" data-testid="game-interface">
       {/* Confetti Effect */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50">
@@ -204,7 +204,7 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <p className="text-center text-lg child-friendly text-gray-600">
+          <p className="text-center text-lg child-friendly text-gray-600" data-testid="progress-indicator">
             Word {currentWordIndex + 1} of {wordSet.items.length}
           </p>
         </div>
@@ -217,6 +217,9 @@ export default function GameInterface({ wordSet, onSubmission }: GameProps) {
               <h2 className="text-6xl font-bold child-friendly text-gray-800 mb-6">
                 Draw this word:
               </h2>
+              <div className="text-8xl font-black child-friendly text-blue-600 mb-4" data-testid="current-word">
+                {currentWord.word}
+              </div>
               
               {/* Play Word Button */}
               <button
