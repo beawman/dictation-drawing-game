@@ -54,6 +54,7 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
    
    # Or manual setup
    cp .env.example .env.local
+   # Then edit .env.local with your actual values
    ```
    
    Fill in the required environment variables in `.env.local`:
@@ -210,9 +211,15 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
 
 **❌ "Database connection error"**
 - Verify your `POSTGRES_URL` in `.env.local`
-- Start the database: `npm run db:start` (for local Docker setup)
+- Start the database: `npm run db:start` (for local Docker setup)  
+- Ensure .env.local file exists with database URL
 - Run `npm run db:push` to sync the database schema
 - Check if your database service is running: `npm run db:status`
+
+**❌ "Drizzle Kit can't read .env.local"**
+- The drizzle.config.ts automatically loads .env.local
+- Ensure dotenv package is installed: `npm install --save-dev dotenv`
+- Check that POSTGRES_URL is set in .env.local
 
 **❌ "Blob storage upload fails"**
 - Verify `BLOB_READ_WRITE_TOKEN` in `.env.local`
