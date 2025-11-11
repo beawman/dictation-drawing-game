@@ -4,11 +4,13 @@ import GoogleProvider from 'next-auth/providers/google';
 import { db } from '@/lib/db';
 import { users, accounts, sessions, verificationTokens } from '@/lib/db/schema';
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+// NextAuth v5 beta requires temporary type workarounds
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const { handlers, signIn, signOut, auth } = (NextAuth as any)({
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
-    sessionsTable: sessions,
+    sessionsTable: sessions as any,
     verificationTokensTable: verificationTokens,
   }),
   providers: [
@@ -18,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    session: async ({ session, user }) => {
+    session: async ({ session, user }: { session: any; user: any }) => {
       if (session?.user) {
         session.user.id = user.id;
         // Add role information to session
@@ -30,13 +32,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token }: { user: any; token: any }) => {
       if (user) {
         token.uid = user.id;
       }
       return token;
     },
   },
+/* eslint-enable @typescript-eslint/no-explicit-any */
   session: {
     strategy: 'database',
   },

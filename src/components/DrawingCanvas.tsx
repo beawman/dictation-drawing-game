@@ -307,9 +307,13 @@ export default function DrawingCanvas({
 // Export helper functions for parent components
 export { type Stroke };
 export const canvasUtils = {
-  exportToPNG: (canvasRef: React.RefObject<HTMLCanvasElement>): Promise<Blob | null> => {
+  exportToPNG: (canvasRef: React.RefObject<HTMLCanvasElement | null>): Promise<Blob | null> => {
     return new Promise((resolve) => {
-      canvasRef.current?.toBlob(resolve, 'image/png');
+      if (!canvasRef.current) {
+        resolve(null);
+        return;
+      }
+      canvasRef.current.toBlob(resolve, 'image/png');
     });
   }
 };

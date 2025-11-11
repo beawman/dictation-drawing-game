@@ -130,7 +130,7 @@ describe('TeacherDashboard', () => {
     await user.upload(fileInput, file);
 
     expect(titleInput).toHaveValue('Week 3 - Colors');
-    expect(fileInput.files![0]).toBe(file);
+    expect((fileInput as HTMLInputElement).files![0]).toBe(file);
   });
 
   it('submits word set upload', async () => {
@@ -188,7 +188,7 @@ describe('TeacherDashboard', () => {
 
     // Find and click activate button for inactive word set
     const activateButtons = screen.getAllByRole('button').filter(
-      button => button.querySelector('svg') && !button.disabled
+      button => button.querySelector('svg') && !(button as HTMLButtonElement).disabled
     );
     
     if (activateButtons.length > 0) {

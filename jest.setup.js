@@ -56,7 +56,7 @@ if (typeof global.HTMLCanvasElement !== 'undefined') {
   global.HTMLCanvasElement.prototype.toDataURL = jest.fn(() => 'data:image/png;base64,test');
 }
 
-require('@testing-library/jest-dom');
+// This is handled by the import at the top
 
 // Mock fetch for API calls
 global.fetch = jest.fn();
