@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { wordSets } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import Papa from 'papaparse';
 
 export async function GET() {
@@ -12,8 +12,12 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get word sets created by this teacher OR system word sets
     const allWordSets = await db.query.wordSets.findMany({
-      where: eq(wordSets.createdBy, session.user.id)
+      where: or(
+        eq(wordSets.createdBy, session.user.id),
+        eq(wordSets.createdBy, 'system')
+      )
     });
 
     return NextResponse.json(allWordSets);
