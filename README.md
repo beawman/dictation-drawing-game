@@ -267,6 +267,16 @@ npm run db:stop                 # Stop local PostgreSQL (Docker)
 # - Use db:push for development (faster, direct schema sync)
 # - Use db:generate + db:migrate for production (versioned migrations)
 # - Use db:studio to browse/edit data with GUI
+
+# Student management (for testing and development)
+npm run students:demo          # Create 8 demo students (@demo.edu)
+npm run students:generate 5    # Create 5 random test students (@testschool.edu)
+npm run students:list          # List all students with types (🎭=demo, 🧪=test, 👨‍🎓=class)
+
+# Advanced student management
+./scripts/generate-students.sh create "John Doe" "john@test.edu"    # Create specific student
+./scripts/generate-students.sh class 25 "Grade 1"                   # Create class of 25 Grade 1 students
+./scripts/generate-students.sh clean                                # Remove all test/demo students (keeps @school.edu)
 ```
 
 # Development
