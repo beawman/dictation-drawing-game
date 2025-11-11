@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Child-friendly global styles */
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-blue-50 to-purple-50;
+  }
+  
+  .child-friendly {
+    @apply font-child text-lg;
+  }
+  
+  .game-button {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-200;
+  }
+  
+  .teacher-button {
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+}
+
+/* Animation keyframes */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotateZ(720deg);
+    opacity: 0;
+  }
+}

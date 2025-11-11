@@ -1,0 +1,24 @@
+{
+  "name": "Dictation Drawing Game",
+  "short_name": "DictationDraw",
+  "description": "Educational drawing game for children aged 4-7",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3b82f6",
+  "theme_color": "#3b82f6",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "games", "kids"],
+  "lang": "en"
+}

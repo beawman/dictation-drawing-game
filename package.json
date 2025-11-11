@@ -1,0 +1,45 @@
+{
+  "name": "dictation-drawing-game",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "drizzle-kit push:pg",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "next-auth": "^5.0.0-beta.25",
+    "@auth/drizzle-adapter": "^1.7.2",
+    "@vercel/postgres": "^0.10.0",
+    "@vercel/blob": "^0.25.1",
+    "drizzle-orm": "^0.36.4",
+    "drizzle-kit": "^0.28.1",
+    "localforage": "^1.10.0",
+    "fabric": "^6.4.3",
+    "csv-parser": "^3.0.0",
+    "papaparse": "^5.4.1",
+    "@types/papaparse": "^5.3.14",
+    "lucide-react": "^0.456.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "15.1.0",
+    "@types/fabric": "^5.3.8"
+  }
+}
