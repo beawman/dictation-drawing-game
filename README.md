@@ -225,6 +225,18 @@ A cross-platform educational game where children aged 4-7 listen to spoken words
 - View logs: `./scripts/docker-db.sh logs`
 - Ensure port 5432 is not in use by another PostgreSQL instance
 
+**❌ "Google sign-in not working"**
+- Verify `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env.local`
+- Check redirect URLs in Google Cloud Console
+- Ensure Google+ API is enabled
+- For development: `http://localhost:3000/api/auth/callback/google`
+- For production: `https://yourdomain.com/api/auth/callback/google`
+
+**❌ "Access denied for teachers"**
+- Check user role: `npm run users:find your-email@example.com`
+- Promote to teacher: `npm run users:manage promote your-email@example.com`
+- Sign out and back in to refresh session
+
 ### Development Commands
 
 ```bash
@@ -263,6 +275,11 @@ npm run wordlist:generate theme     # Generate themed word lists
 npm run wordlist:validate file.txt  # Validate word list format
 ./scripts/generate-wordlist.sh      # Direct generator usage
 ./scripts/validate-wordlist.sh      # Direct validator usage
+
+# User management (Admin only)
+npm run users:list                  # List all users and roles
+npm run users:manage promote email  # Promote user to teacher
+./scripts/manage-users.sh           # Direct user management
 ```
 
 ### Production Deployment
@@ -282,7 +299,16 @@ npm run wordlist:validate file.txt  # Validate word list format
    - Postgres: Project → Storage → Create Database → Postgres
    - Blob: Project → Storage → Create Database → Blob
 
-## 📚 Word Lists
+## � Authentication & User Management
+
+For detailed instructions on signup, login, and user roles, see **[AUTHENTICATION.md](AUTHENTICATION.md)**
+
+### Quick Start - Authentication
+1. **Students**: Just visit the app and click "Sign in with Google"
+2. **Teachers**: Sign in first, then contact admin to upgrade your role
+3. **Role Management**: Use database tools or Drizzle Studio
+
+## �📚 Word Lists
 
 For detailed instructions on creating and uploading word lists, see **[WORDLISTS.md](WORDLISTS.md)**
 

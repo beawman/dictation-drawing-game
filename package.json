@@ -24,7 +24,9 @@
     "db:status": "./scripts/docker-db.sh status",
     "db:connect": "./scripts/docker-db.sh connect",
     "wordlist:validate": "./scripts/validate-wordlist.sh",
-    "wordlist:generate": "./scripts/generate-wordlist.sh"
+    "wordlist:generate": "./scripts/generate-wordlist.sh",
+    "users:list": "./scripts/manage-users.sh list",
+    "users:manage": "./scripts/manage-users.sh"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.2",
