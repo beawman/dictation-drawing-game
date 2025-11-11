@@ -7,7 +7,8 @@ import {
   jsonb, 
   integer,
   date,
-  varchar
+  varchar,
+  primaryKey
 } from 'drizzle-orm/pg-core';
 
 // Users table for NextAuth.js
@@ -23,7 +24,6 @@ export const users = pgTable('users', {
 });
 
 export const accounts = pgTable('accounts', {
-  id: text('id').notNull().primaryKey(),
   userId: text('userId').notNull().references(() => users.id, { onDelete: 'cascade' }),
   type: text('type').notNull(),
   provider: text('provider').notNull(),
@@ -35,11 +35,14 @@ export const accounts = pgTable('accounts', {
   scope: text('scope'),
   id_token: text('id_token'),
   session_state: text('session_state'),
-});
+}, (account) => ({
+  compositePk: primaryKey({
+    columns: [account.provider, account.providerAccountId],
+  }),
+}));
 
 export const sessions = pgTable('sessions', {
-  id: text('id').notNull().primaryKey(),
-  sessionToken: text('sessionToken').notNull(),
+  sessionToken: text('sessionToken').notNull().primaryKey(),
   userId: text('userId').notNull().references(() => users.id, { onDelete: 'cascade' }),
   expires: timestamp('expires', { mode: 'date' }).notNull(),
 });
@@ -48,7 +51,11 @@ export const verificationTokens = pgTable('verificationTokens', {
   identifier: text('identifier').notNull(),
   token: text('token').notNull(),
   expires: timestamp('expires', { mode: 'date' }).notNull(),
-});
+}, (verificationToken) => ({
+  compositePk: primaryKey({
+    columns: [verificationToken.identifier, verificationToken.token],
+  }),
+}));
 
 // WordSets table as per technical specification
 export const wordSets = pgTable('wordsets', {
