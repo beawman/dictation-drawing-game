@@ -16,7 +16,13 @@
     "db:push": "drizzle-kit push:pg",
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit push:pg",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:start": "./scripts/docker-db.sh start",
+    "db:stop": "./scripts/docker-db.sh stop",
+    "db:restart": "./scripts/docker-db.sh restart",
+    "db:logs": "./scripts/docker-db.sh logs",
+    "db:status": "./scripts/docker-db.sh status",
+    "db:connect": "./scripts/docker-db.sh connect"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.7.2",
