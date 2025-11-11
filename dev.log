@@ -1,0 +1,23 @@
+
+> dictation-drawing-game@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.0
+   - Local:        http://localhost:3000
+   - Network:      http://10.0.13.214:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1707ms
+ ○ Compiling /api/active-week ...
+ ✓ Compiled /api/active-week in 8.1s (686 modules)
+ GET /api/active-week 200 in 9102ms
+ ○ Compiling /game ...
+ ✓ Compiled /game in 6.7s (1036 modules)
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /game. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata viewport is configured in metadata export in /game. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /game 200 in 7308ms
+ ✓ Compiled in 1333ms (331 modules)
+ ✓ Compiled in 1399ms (1036 modules)
